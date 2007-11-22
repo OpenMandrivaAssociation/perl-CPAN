@@ -71,6 +71,8 @@ rm -rf %{buildroot}
 %install
 rm -rf %{buildroot}
 %makeinstall_std
+# Temporarily rename the cpan shell in order to wait for perl-5.10
+%{__mv} %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{version}
 
 %files
 %defattr(-,root,root)
