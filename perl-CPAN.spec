@@ -60,6 +60,8 @@ interactive shell style.
 %check
 # Signature file does not contain debug files signatures, just ignore the file for tests
 %{__mv} SIGNATURE SIGNATURE_test
+# perl(CPAN::Test::Dummy::Perl5::Make::CircDepeOne/Two/Three) issue a warning if not present
+# so we just ignore them (they induce a failure if tested)
 %{__make} test
 %{__mv} SIGNATURE_test SIGNATURE
 
