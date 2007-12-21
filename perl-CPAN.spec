@@ -25,6 +25,7 @@ BuildRequires:	perl(YAML)
 BuildRequires:	perl(YAML::Syck)
 
 BuildArch:	noarch
+BuildRoot:	%{_tmppath}/%{name}-root
 
 %description
 The CPAN module automates or at least simplifies the make and install of
