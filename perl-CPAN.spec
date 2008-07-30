@@ -1,7 +1,7 @@
 %define module	CPAN
 %define name	perl-%{module}
 %define version 1.9205
-%define release %mkrel 2
+%define release %mkrel 4
 
 Name:		%{name}
 Version:	%{version}
