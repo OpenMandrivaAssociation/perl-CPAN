@@ -1,7 +1,7 @@
 %define module	CPAN
 %define name	perl-%{module}
-%define version 1.9205
-%define release %mkrel 4
+%define version 1.9301
+%define release %mkrel 1
 
 Name:		%{name}
 Version:	%{version}
@@ -9,12 +9,8 @@ Release:	%{release}
 Summary:	%{module} module for perl
 License:	GPL or Artistic
 Group:		Development/Perl
-Source:		ftp.perl.org/pub/CPAN/modules/by-module/%{module}-%{version}.tar.bz2
 Url:		http://search.cpan.org/dist/%{module}/
-
-#BuildRequires:	perl(CPAN::Test::Dummy::Perl5::Make::CircDepeOne)
-#BuildRequires:	perl(CPAN::Test::Dummy::Perl5::Make::CircDepeTwo)
-#BuildRequires:	perl(CPAN::Test::Dummy::Perl5::Make::CircDepeThree)
+Source:		http://search.cpan.org/CPAN/authors/id/A/AN/ANDK/%{module}-%{version}.tar.gz
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Basename)
@@ -23,9 +19,8 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::Pod::Coverage)
 BuildRequires:	perl(YAML)
 BuildRequires:	perl(YAML::Syck)
-
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 The CPAN module automates or at least simplifies the make and install of
