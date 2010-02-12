@@ -1,16 +1,17 @@
-%define module	CPAN
-%define name	perl-%{module}
-%define version 1.9402
-%define release %mkrel 1
+%define upstream_name	CPAN
+%define upstream_version 1.9402
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Summary:	%{module} module for perl
-License:	GPL or Artistic
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+Epoch:      1
+
+Summary:	%{upstream_name} module for perl
+License:	GPL+ or Artistic
 Group:		Development/Perl
-Url:		http://search.cpan.org/dist/%{module}/
-Source:		http://search.cpan.org/CPAN/authors/id/A/AN/ANDK/%{module}-%{version}.tar.gz
+Url:		http://search.cpan.org/dist/%{upstream_name}/
+Source0:	http://search.cpan.org/CPAN/authors/id/A/AN/ANDK/%{upstream_name}-%{upstream_version}.tar.gz
+
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Basename)
@@ -19,8 +20,9 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::Pod::Coverage)
 BuildRequires:	perl(YAML)
 BuildRequires:	perl(YAML::Syck)
+
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 The CPAN module automates or at least simplifies the make and install of
@@ -45,19 +47,18 @@ All methods provided are accessible in a programmer style and in an
 interactive shell style.
 
 %prep
-%setup -q -n %{module}-%{version}
-
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
-%{__make}
+%make
 
 %check
 # Signature file does not contain debug files signatures, just ignore the file for tests
 %{__mv} SIGNATURE SIGNATURE_test
 # perl(CPAN::Test::Dummy::Perl5::Make::CircDepeOne/Two/Three) issue a warning if not present
 # so we just ignore them (they induce a failure if tested)
-%{__make} test
+%make test
 %{__mv} SIGNATURE_test SIGNATURE
 
 %clean 
@@ -67,12 +68,11 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}
 %makeinstall_std
 # Temporarily rename the cpan shell in order to wait for perl-5.10
-%{__mv} %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{version}
+%{__mv} %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{upstream_version}
 
 %files
 %defattr(-,root,root)
-%{_bindir}/*
 %doc Changes README
+%{_bindir}/*
 %{perl_vendorlib}
 %{_mandir}/*/*
-
