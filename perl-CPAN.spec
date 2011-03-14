@@ -1,5 +1,5 @@
 %define upstream_name	CPAN
-%define upstream_version 1.9402
+%define upstream_version 1.9600
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
