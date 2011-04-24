@@ -3,7 +3,7 @@
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 2
+Release:    %mkrel 3
 Epoch:      1
 
 Summary:	%{upstream_name} module for perl
@@ -69,6 +69,7 @@ rm -rf %{buildroot}
 %makeinstall_std
 # Temporarily rename the cpan shell in order to wait for perl-5.10
 %{__mv} %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{upstream_version}
+%{__mv} %{buildroot}/%{_mandir}/man1/cpan.1 %{buildroot}/%{_mandir}/man1/cpan-%{upstream_version}.1
 
 %files
 %defattr(-,root,root)
