@@ -1,10 +1,14 @@
 %define upstream_name	CPAN
 %define upstream_version 1.9600
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 3
-Epoch:      1
+%if %{_use_internal_dependency_generator}
+%define __noautoreq 'perl\\(Mac::BuildTools\\)'
+%endif
+
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	5
+Epoch:		1
 
 Summary:	%{upstream_name} module for perl
 License:	GPL+ or Artistic
@@ -12,6 +16,7 @@ Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}/
 Source0:	http://search.cpan.org/CPAN/authors/id/A/AN/ANDK/%{upstream_name}-%{upstream_version}.tar.gz
 
+BuildRequires:	perl-devel
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Basename)
@@ -22,7 +27,6 @@ BuildRequires:	perl(YAML)
 BuildRequires:	perl(YAML::Syck)
 
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 The CPAN module automates or at least simplifies the make and install of
@@ -50,30 +54,26 @@ interactive shell style.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 # Signature file does not contain debug files signatures, just ignore the file for tests
-%{__mv} SIGNATURE SIGNATURE_test
+mv SIGNATURE SIGNATURE_test
 # perl(CPAN::Test::Dummy::Perl5::Make::CircDepeOne/Two/Three) issue a warning if not present
 # so we just ignore them (they induce a failure if tested)
 %make test
-%{__mv} SIGNATURE_test SIGNATURE
-
-%clean 
-rm -rf %{buildroot}
+mv SIGNATURE_test SIGNATURE
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 # Temporarily rename the cpan shell in order to wait for perl-5.10
-%{__mv} %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{upstream_version}
-%{__mv} %{buildroot}/%{_mandir}/man1/cpan.1 %{buildroot}/%{_mandir}/man1/cpan-%{upstream_version}.1
+mv %{buildroot}/%{_bindir}/cpan %{buildroot}/%{_bindir}/cpan-%{upstream_version}
+mv %{buildroot}/%{_mandir}/man1/cpan.1 %{buildroot}/%{_mandir}/man1/cpan-%{upstream_version}.1
 
 %files
-%defattr(-,root,root)
 %doc Changes README
 %{_bindir}/*
 %{perl_vendorlib}
 %{_mandir}/*/*
+
