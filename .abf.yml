@@ -1,2 +1,4 @@
+removed_sources:
+  CPAN-1.9600.tar.gz: b08a3e1e9c490151b3d589ca6d4cce1cd0b12498
 sources:
-  "CPAN-1.9600.tar.gz": b08a3e1e9c490151b3d589ca6d4cce1cd0b12498
+  CPAN-2.00.tar.gz: 797fc819e7f4c7c10512e6234b7929f750a293bc
