@@ -1,5 +1,5 @@
 %define upstream_name	CPAN
-%define upstream_version 2.00
+%define upstream_version 2.05
 
 %if %{_use_internal_dependency_generator}
 %define __noautoreq 'perl\\(Mac::BuildTools\\)'
@@ -11,10 +11,11 @@ Release:	1
 Epoch:		1
 
 Summary:	%{upstream_name} module for perl
+
 License:	GPL+ or Artistic
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}/
-Source0:	http://www.cpan.org/authors/id/A/AN/ANDK/CPAN-%{upstream_version}.tar.gz
+Source0:	http://search.cpan.org/%{upstream_name}/authors/id/A/AN/ANDK/%{upstream_name}-%{upstream_version}.tar.gz
 
 BuildRequires:	perl-devel
 BuildRequires:	perl(Digest::SHA)
@@ -76,5 +77,6 @@ mv %{buildroot}/%{_mandir}/man1/cpan.1 %{buildroot}/%{_mandir}/man1/cpan-%{upstr
 %{_bindir}/*
 %{perl_vendorlib}
 %{_mandir}/*/*
+
 
 
