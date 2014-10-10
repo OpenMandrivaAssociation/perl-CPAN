@@ -7,7 +7,7 @@
 
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	1
+Release:	2
 Epoch:		1
 
 Summary:	%{upstream_name} module for perl
